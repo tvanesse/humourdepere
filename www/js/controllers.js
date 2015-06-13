@@ -1,0 +1,1 @@
+angular.module('hdp.controllers', ['hdp.services'])
