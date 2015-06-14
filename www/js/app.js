@@ -1,7 +1,12 @@
 angular.module('hdp-mobile', [
   'ionic',
-  'hdp.controllers'
+  'hdp.controllers',
+  'lbServices'
   ])
+
+.config(function(LoopBackResourceProvider) {
+  LoopBackResourceProvider.setUrlBase('http://localhost:3000/api');
+})
 
 .config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise("/");
@@ -10,14 +15,16 @@ angular.module('hdp-mobile', [
 
     .state('main', {
       abstract: true,
-      templateUrl: 'templates/main.html'
+      templateUrl: 'templates/main.html',
+      controller: 'MainCtrl'
     })
 
     .state('main.shuffle', {
       url: '/',
       views: {
         'menuContent': {
-          templateUrl: 'templates/shuffle.html'
+          templateUrl: 'templates/shuffle.html',
+          controller: 'ShuffleJokesCtrl as ShuffleJokesCtrl'
         }
       }
     })
