@@ -5,11 +5,41 @@ angular.module('hdp-mobile', [
 
 .config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise("/");
+
   $stateProvider
+
     .state('main', {
-      url: '/',
-      templateUrl: '../templates/main.html'
+      abstract: true,
+      templateUrl: 'templates/main.html'
     })
+
+    .state('main.shuffle', {
+      url: '/',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/shuffle.html'
+        }
+      }
+    })
+
+    .state('main.newJoke', {
+      url: '/new-joke',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/jokeForm.html'
+        }
+      }
+    })
+
+    .state('main.login', {
+      url: '/login',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/login.html'
+        }
+      }
+    })
+
 })
 
 .run(function($ionicPlatform) {
