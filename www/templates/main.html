@@ -16,18 +16,27 @@
   <ion-side-menu side="right">
     <ion-list>
       <ion-item class="item-divider">Mon humour</ion-item>
-      <ion-item menu-close class="item-icon-left" ui-sref="main.login">
+      <ion-item menu-close class="item-icon-left" ui-sref="main.login" ng-if="!MainCtrl.isUserLoggedIn()">
         <i class="icon ion-log-in"></i>
         Se connecter
+      </ion-item>
+      <ion-item menu-close class="item-avatar" ui-sref="main.login" ng-if="MainCtrl.isUserLoggedIn()">
+        <img src="img/logo-sm.png">
+        <h2>{{MainCtrl.getUserNickname()}}</h2>
+        <p>Profil et préférences</p>
       </ion-item>
       <ion-item menu-close class="item-icon-left" ui-sref="main.newJoke">
         <i class="icon ion-happy-outline"></i>
         Écrire une farce
       </ion-item>
+      <ion-item menu-close class="item-icon-left" ng-if="MainCtrl.isUserLoggedIn()">
+        <i class="icon ion-heart"></i>
+        Mes blagues favorites
+      </ion-item>
       <ion-item class="item-divider">Blagues</ion-item>
       <ion-item class="item-icon-left">
         <i class="icon ion-trophy"></i>
-        Meilleures blagues
+        Meilleurs calembours
       </ion-item>
       <ion-item menu-close class="item-icon-left" ui-sref="main.shuffle">
         <i class="icon ion-shuffle"></i>

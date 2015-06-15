@@ -6,7 +6,7 @@
       <div class="item item-avatar">
         <img src="img/logo-sm.png">
         <h2>{{ShuffleJokesCtrl.getJoke().title}}</h2>
-        <p>par tvanesse</p>
+        <p>par {{SuffleJokesCtrl.getJoke().jokerId}}</p>
       </div>
 
       <div class="item item-body">
@@ -15,8 +15,13 @@
         </p>
 
         <p>
-          <a href="#" class="subdued balanced">Score: <b>+23</b></a>
-          <a href="#" class="subdued">Rank: <b>#234</b></a>
+          <span class="subdued">Score: <b ng-class="{
+            'balanced': ShuffleJokesCtrl.positiveScore(),
+            'assertive': !ShuffleJokesCtrl.positiveScore()}">
+              {{ShuffleJokesCtrl.getJoke().score}}
+            </b>
+          </span>
+          <!-- <span class="subdued">Rank: <b>#234</b></span> -->
         </p>
       </div>
 
@@ -36,12 +41,10 @@
 
     <div class="row">
       <div class="col">
-        <button class="button button-block button-outline button-large button-dark" ng-click="ShuffleJokesCtrl.nextJoke()">Passe pas</button>
-        <!-- <button class="button button-block button-outline button-large button-dark icon-left ion-close-round">Passe pas</button> -->
+        <button class="button button-block button-outline button-large button-dark" ng-click="ShuffleJokesCtrl.downVote()">C'est nul</button>
       </div>
       <div class="col">
-        <!-- <button class="button button-block button-outline button-large button-balanced icon-left ion-checkmark-round">Ca passe</button> -->
-        <button class="button button-block button-outline button-large button-balanced" ng-click="ShuffleJokesCtrl.nextJoke()">Ca passe</button>
+        <button class="button button-block button-outline button-large button-balanced" ng-click="ShuffleJokesCtrl.upVote()">Excel' !</button>
       </div>
     </div>
   </ion-content>

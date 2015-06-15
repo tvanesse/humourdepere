@@ -16,7 +16,7 @@ angular.module('hdp-mobile', [
     .state('main', {
       abstract: true,
       templateUrl: 'templates/main.html',
-      controller: 'MainCtrl'
+      controller: 'MainCtrl as MainCtrl'
     })
 
     .state('main.shuffle', {
@@ -33,7 +33,8 @@ angular.module('hdp-mobile', [
       url: '/new-joke',
       views: {
         'menuContent': {
-          templateUrl: 'templates/jokeForm.html'
+          templateUrl: 'templates/jokeForm.html',
+          controller: 'NewJokeCtrl as NewJokeCtrl'
         }
       }
     })
@@ -42,7 +43,17 @@ angular.module('hdp-mobile', [
       url: '/login',
       views: {
         'menuContent': {
-          templateUrl: 'templates/login.html'
+          templateUrl: 'templates/login.html',
+          controller: 'LoginCtrl as LoginCtrl'
+        }
+      }
+    })
+
+    .state('main.login.viaEmail', {
+      url: '/mail',
+      views: {
+        'loginForm': {
+          templateUrl: 'templates/login-via-email.html'
         }
       }
     })

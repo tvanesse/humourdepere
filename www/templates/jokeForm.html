@@ -3,11 +3,12 @@
     <h2>Nouvelle blague</h2>
     <label class="item item-input item-floating-label">
       <span class="input-label">Titre</span>
-      <input type="text" placeholder="Ton titre">
+      <input type="text" placeholder="Ton titre" ng-model="Common.jokeTitle">
     </label>
     <label class="item item-input item-floating-label">
       <span class="input-label">Blague</span>
-      <textarea placeholder="Ta blague (max. 140 caractères)" rows="8"></textarea>
+      <textarea placeholder="Ta blague (max. 140 caractères)" rows="8" ng-model="Common.jokeContent"></textarea>
+      <span ng-show="Common.jokeContent == undefined">0</span>{{Common.jokeContent.length}}/140
     </label>
 
 <!--     <ion-list>
@@ -32,6 +33,6 @@
       </ion-item>
     </ion-list> -->
 
-    <button class="button button-block button-balanced" ui-sref="main.login">Publier</button>
+    <button class="button button-block button-balanced" ui-sref="main.shuffle" ng-click="NewJokeCtrl.sendJoke()">Publier</button>
   </ion-content>
 </ion-view>
