@@ -25,12 +25,34 @@ angular.module('hdp.controllers', ['hdp.services'])
         },
         function (list) { // Success
             this.jokes = list
-            console.log(list)
         }.bind(this),
         function (err) { // Fail
             console.error(err)
         }
     )
+
+    this.getJokeAuthor = function () {
+        if (this.currentJokeAuthor) {
+            if (this.currentJokeAuthor.nickname)
+                return this.currentJokeAuthor.nickname
+            return "un auteur anonyme"
+        }
+        else {
+            var joke = this.getJoke()
+            if (joke) {
+                this.currentJokeAuthor = Joke.joker({
+                    id: joke.id,
+                    refresh: true
+                })
+                if (this.currentJokeAuthor.nickname) {
+                    return this.currentJokeAuthor.nickname
+                }
+                else {
+                    return "un auteur anonyme"
+                }
+            }
+        }
+    }
 
     this.positiveScore = function () {
         if (this.getJoke() != undefined)
@@ -58,6 +80,7 @@ angular.module('hdp.controllers', ['hdp.services'])
 
     this.nextJoke = function () {
         if (this.jokes != undefined) {
+            this.currentJokeAuthor = null   // reset the current author
             if (this.currentJokeID + 1 == this.jokes.length) {
                 // We have reached the end of the list. Start over again.
                 this.currentJokeID = 0
@@ -69,21 +92,23 @@ angular.module('hdp.controllers', ['hdp.services'])
     }
 })
 
-.controller('NewJokeCtrl', function ($scope, Joke) {
+.controller('NewJokeCtrl', function ($scope, Joke, $rootScope) {
 
     this.sendJoke = function () {
-        Joke.create({
+        var data = {
             title: $scope.Common.jokeTitle,
             content: $scope.Common.jokeContent
-        }, function (ans) {
-            console.log(ans)
-        }, function (err) {
-            console.error(err)
-        })
+        }
+        if ($rootScope.currentUser != undefined) {
+            data['jokerId'] = $rootScope.id
+        }
+        Joke.create(data,
+            function (ans) { console.log(ans)},
+            function (err) { console.error(err)})
     }
 })
 
-.controller('LoginCtrl', function ($scope, Joker, $rootScope) {
+.controller('LoginCtrl', function ($scope, Joker, $rootScope, $state) {
     this.login = function () {
         Joker.login({
             email: $scope.Common.email,
@@ -96,5 +121,7 @@ angular.module('hdp.controllers', ['hdp.services'])
                 nickname: ans.user.nickname
             }
         })
+
+        $state.go('main.shuffle')
     }
 })

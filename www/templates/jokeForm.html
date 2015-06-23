@@ -33,6 +33,10 @@
       </ion-item>
     </ion-list> -->
 
+    <ion-item class="item-avatar" ng-if="MainCtrl.isUserLoggedIn()">
+      <img src="img/logo-sm.png">
+      <h2>{{MainCtrl.getUserNickname()}}</h2>
+    </ion-item>
     <button class="button button-block button-balanced" ui-sref="main.shuffle" ng-click="NewJokeCtrl.sendJoke()">Publier</button>
   </ion-content>
 </ion-view>
